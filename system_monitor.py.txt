@@ -1,0 +1,49 @@
+import psutil
+import datetime
+
+# Thresholds for alerts
+CPU_THRESHOLD = 80  # percent
+MEM_THRESHOLD = 80  # percent
+DISK_THRESHOLD = 80 # percent
+
+# Log file path
+LOG_FILE = "system_log.txt"
+
+
+ """Append a message to the log file with a timestamp"""
+
+
+def log_message(message):
+    with open(LOG_FILE, "a") as f:
+        f.write(f"{datetime.datetime.now()} - {message}\n")
+
+def check_system():
+    """Check CPU, Memory, and Disk usage"""
+    cpu = psutil.cpu_percent(interval=1)
+    mem = psutil.virtual_memory().percent
+    disk = psutil.disk_usage('/').percent
+
+    status = f"CPU: {cpu}% | Memory: {mem}% | Disk: {disk}%"
+    print(status)
+    log_message(status)
+
+    # Alerts
+    if cpu > CPU_THRESHOLD:
+        alert = f"ALERT: High CPU usage! ({cpu}%)"
+        print(alert)
+        log_message(alert)
+
+    if mem > MEM_THRESHOLD:
+        alert = f"ALERT: High Memory usage! ({mem}%)"
+        print(alert)
+        log_message(alert)
+
+    if disk > DISK_THRESHOLD:
+        alert = f"ALERT: Disk almost full! ({disk}%)"
+        print(alert)
+        log_message(alert)
+
+if __name__ == "__main__":
+    print("Starting system monitor...")
+    log_message("System monitoring started.")
+    check_system()

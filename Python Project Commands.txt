@@ -1,0 +1,43 @@
+
+#Installing the Required Libraries
+
+pip3 install psutil
+
+
+
+#Creating the project folder
+
+mkdir python-system-monitor
+cd python-system-monitor
+
+
+
+#The Python script
+
+nano system_monitor.py
+
+
+#Running the Script
+
+./system_monitor.py
+
+
+
+#Checking the log file
+
+cat system_log.txt
+
+
+
+#Automating with Cron top run every 5 minutes
+
+crontab -e
+
+*/5 * * * * /usr/bin/python3 /home/username/python-system-monitor/system_monitor.py
+
+
+
+
+
+
+
